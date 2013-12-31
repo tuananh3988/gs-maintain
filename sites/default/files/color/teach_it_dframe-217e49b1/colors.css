@@ -1,0 +1,87 @@
+
+/* ---------- Color Module Styles ----------- */
+
+/* Main */
+body {
+  background: #ffffff;
+  
+}
+
+
+/* Section Header */
+#section-header{
+  background-color: #6abd47;
+}
+#section-header{
+  color: #edeeea;
+}
+#section-header a{
+  color: #198835;
+}
+
+/* Section Content */
+#section-content {
+  background-color: #ffffff;
+}
+#section-content {
+  color: #181918;
+}
+#section-content a,
+#section-content a.active {
+  color: #6abd47;
+}
+
+
+/* Section Footer */
+#section-footer {
+  background-color: #6abd47;
+}
+#section-footer {
+  color: #f0ede5;
+}
+#section-footer a,
+#section-footer a.active {
+  color: #ffffff;
+}
+
+/* Zone Scheme */
+
+#zone-menu-wrapper {
+    background-color: #ffffff;
+}
+
+#zone-branding-wrapper {
+    background-color: #ffffff;
+}
+
+#zone-preface-wrapper {
+    background-color: #ffffff;
+}
+
+#zone-postscript-wrapper {
+    background-color: #ffffff;
+}
+
+#region-header-first {
+    background-color: #ffffff;
+}
+
+#region-header-second {
+    background-color: #ffffff;
+}
+
+#region-user-first {
+    background-color: #6abd47;
+}
+
+#region-user-second {
+    background-color: #6abd47;
+}
+
+.block-main-menu ul.menu ul li a:hover, .block-main-menu ul.menu ul li a.active:hover, .block-main-menu ul.menu li a:hover,  .block-main-menu ul.menu li a.active:hover, .block-main-menu ul.menu li a.active-trail:hover {
+    background-color: #6abd47;   
+}
+
+.block_main_menu_teachit ul.menu li a.active, .block_main_menu_teachit ul.menu li a.active-trail {
+    background-color: #ffffff;
+}
