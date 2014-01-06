@@ -1,5 +1,21 @@
 <?php
 
+function teach_it_dframe_config_menu() {
+    $items['shop/stores'] = array(
+			'title' => 'SEE WHAT’S NEW IN STORES & SHOP AT ONE OF OUR TEN LOCATIONS!',
+      'page callback' => 'shop_stores_view',
+      //'page arguments' => array(1, 'foo'),
+			'access callback' => TRUE,
+			'type' => MENU_LOCAL_ACTION,
+    );
+		
+    return $items;
+}
+	
+function shop_stores_view() {
+	$block = module_invoke('views', 'block_view', 'instagrams-block_2');
+	print render($block['content']);
+}
 /**
  * Implements hook_block_info().
  *
