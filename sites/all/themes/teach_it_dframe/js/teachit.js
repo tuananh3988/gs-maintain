@@ -31,6 +31,15 @@
         className: 'mnav',
         subMenuDash: '&emsp;'
       });
+			
+			$('.page-shop-stores .overlay-stores').hover(function() {
+				$(this).parent().find('.flexslider .flex-direction-nav a').css('display', 'block');
+				$(this).parent().find('.flexslider .flex-direction-nav a').css('opacity', 1);
+				$(this).parent().find('.flexslider .flex-direction-nav a.flex-prev').css('left', '5px');
+				$(this).parent().find('.flexslider .flex-direction-nav a.flex-next').css('right', '5px');
+			}, function() {
+				$(this).parent().find('.flexslider .flex-direction-nav a').css('display', '');
+			});
   
     });
 

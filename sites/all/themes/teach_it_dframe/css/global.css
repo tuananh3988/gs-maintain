@@ -531,3 +531,21 @@ ul.mnav.sf-menu>li>a {
 .view-slide-photos-shop ul li.views-row-1 {
 	margin-left: 0;
 }
+
+.page-shop-stores .view-display-id-block_3 {
+	position: relative;
+}
+
+.page-shop-stores .overlay-stores {
+	position: absolute;
+	top: 4px;
+	left: 4px;
+	width: 30%;
+	height: 94%;
+	background-color: #fff;
+	opacity: 0.8;
+}
+
+.page-shop-stores .flexslider {
+	margin-bottom: 10px;
+}
