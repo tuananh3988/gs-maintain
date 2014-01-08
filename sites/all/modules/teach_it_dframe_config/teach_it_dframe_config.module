@@ -3,17 +3,18 @@
 function teach_it_dframe_config_menu() {
     $items['shop/stores'] = array(
 			'title' => 'SEE WHAT’S NEW IN STORES & SHOP AT ONE OF OUR TEN LOCATIONS!',
+			'title callback' => 'SEE WHAT’S NEW IN STORES & SHOP AT ONE OF OUR TEN LOCATIONS!',
       'page callback' => 'shop_stores_view',
       //'page arguments' => array(1, 'foo'),
 			'access callback' => TRUE,
-			//'type' => MENU_LOCAL_ACTION,
+			'type' => MENU_NORMAL_ITEM,
     );
 		
     return $items;
 }
 	
 function shop_stores_view() {
-	$contents = '';
+	$contents = '<h1 class="title-stores">SEE WHAT’S NEW IN STORES & SHOP AT ONE OF OUR TEN LOCATIONS!</h1>';
 	
 	$results = db_select('shop_stores', 's')
     ->fields('s')
