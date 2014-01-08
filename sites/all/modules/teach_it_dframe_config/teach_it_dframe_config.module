@@ -6,25 +6,48 @@ function teach_it_dframe_config_menu() {
       'page callback' => 'shop_stores_view',
       //'page arguments' => array(1, 'foo'),
 			'access callback' => TRUE,
-			'type' => MENU_LOCAL_ACTION,
+			//'type' => MENU_LOCAL_ACTION,
     );
 		
     return $items;
 }
 	
 function shop_stores_view() {
-	$_GET['store'] = 'gsbrynmawr';
-	$contents = views_embed_view('instagrams', 'block_3');
-	$contents = substr($contents, 0, -6);
-	$contents .= '<div class="overlay-stores">test</div></div>';
+	$contents = '';
 	
-	$_GET['store'] = 'gschestnuthill';
-	$contents .= views_embed_view('instagrams', 'block_3');
-	$contents = substr($contents, 0, -6);
-	$contents .= '<div class="overlay-stores">test</div></div>';
+	$results = db_select('shop_stores', 's')
+    ->fields('s')
+    ->execute()
+    ->fetchAll();
+	
+	foreach($results as $key => $store) {
+		$tag = db_select('drupagram_tags', 'd')
+			->fields('d')
+			->condition('id', $store->id_instagram_tag, '=')
+			->execute()
+			->fetchAssoc();
+		
+		$contents .= process_content_stores($tag['tag_name'], $store);
+	}
+	
 
 	return $contents;
 }
+
+function process_content_stores($name, $store) {
+	$_GET['store'] = $name;
+	$view = views_embed_view('instagrams', 'block_3');
+	$view = substr($view, 0, -6);
+	$view .= '<div class="overlay-stores">';
+	$view .= '<p class="name-store">' . $store->name . '</p>';
+	$view .= '<p>' . $store->address . '</p>';
+	$view .= '<p>' . $store->street . '</p>';
+	$view .= '<p>' . $store->phone . '</p>';
+	$view .= '</div></div>';
+	
+	return $view;
+}
+
 /**
  * Implements hook_block_info().
  *

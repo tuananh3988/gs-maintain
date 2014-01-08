@@ -12,3 +12,67 @@
 function teach_it_dframe_config_uninstall() {
   //variable_del('block_example_string');
 }
+
+function teach_it_dframe_config_schema() {
+  /**
+   * Instagram media objects have the following attributes:
+   *
+   * public id;
+   * public user;
+   * public type;
+   * public images;
+   * public location;
+   * public comments;
+   * public caption;
+   * public link;
+   * public likes;
+   * public filter;
+   * public created_time;
+   */
+  $schema['shop_stores'] = array(
+    'description' => "Stores Shop infomation.",
+    'fields' => array(
+      'id' => array(
+        'description' => "Unique identifier for each {Stores Shop} post.",
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+			'id_instagram_tag' => array(
+        'description' => "foregn key druagram_tags table",
+        'type' => 'varchar',
+        'length' => 64,
+        'not null' => TRUE,
+      ),
+      'name' => array(
+        'description' => "Username of the {drupagram_account} user.",
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'address' => array(
+        'description' => "Address shop store",
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ),
+			'street' => array(
+        'description' => "street shop store",
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ),
+      'phone' => array(
+        'description' => "Phone Shop store",
+				'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ),
+    ),
+    'primary key' => array('id'),
+  );
+
+  return $schema;
+}

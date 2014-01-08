@@ -540,12 +540,33 @@ ul.mnav.sf-menu>li>a {
 	position: absolute;
 	top: 4px;
 	left: 4px;
-	width: 30%;
+	width: 20%;
 	height: 94%;
 	background-color: #fff;
 	opacity: 0.8;
 }
 
+.page-shop-stores .overlay-stores p {
+	text-align: center;
+	color: #000;
+	padding: 5px 0;
+}
+
+.page-shop-stores .overlay-stores p.name-store {
+	font-size: 20px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
 .page-shop-stores .flexslider {
 	margin-bottom: 10px;
+}
+
+.page-shop-stores h1.title {
+	display: block;
+	background-color: #636566;
+	text-align: center;
+	padding: 7px 0;
+	color: #fff;
+	margin-bottom: 5px;
 }
