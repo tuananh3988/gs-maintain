@@ -132,6 +132,19 @@ function color_get_images($theme, $default = FALSE) {
     return $default ? $images : variable_get('color_' . $theme . '_images', $images);
 }
 
+function teach_it_dframe_preprocess_node(&$variables) {
+  // if readmore link is set
+  if (isset($variables['content']['links']['node']['#links']['node-readmore']) && $variables['type'] == 'location_shop') {
+    // make a copy of the old link and change the link's title
+    $readmore = $variables['content']['links']['node']['#links']['node-readmore'];
+    $readmore['title'] = t('Click for the map & to shop in store!');
+    // remove the old link
+    unset($variables['content']['links']['node']['#links']['node-readmore']);
+    // creat a new link under a different name
+    $variables['content']['links']['node']['#links']['node-readmore-custom'] = $readmore;
+  }
+}
+
 // Add link for Ubuntu font
 drupal_add_css('http://fonts.googleapis.com/css?family=Ubuntu', array('group' => CSS_THEME, 'type' => 'external'));
 
@@ -139,3 +152,5 @@ drupal_add_css('http://fonts.googleapis.com/css?family=Ubuntu', array('group' =>
 global $theme_key;
 $css = variable_get('color_' . $theme_key . '_images_file');
 drupal_add_css(file_create_url($css), array('group' => CSS_THEME, 'type' => 'external'));
+
+

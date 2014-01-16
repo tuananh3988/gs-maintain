@@ -570,3 +570,19 @@ ul.mnav.sf-menu>li>a {
 	color: #fff;
 	margin-bottom: 5px;
 }
+
+
+.node-location-shop .node-teaser h2 a {
+	color: #000;
+	font-size: 28px;
+}
+
+.node-location-shop .node-teaser p {
+	color: #000;
+}
+
+.node-location-shop.node-teaser .node-readmore-custom a{
+	border: none;
+	background: none;
+	width: 110px;
+}
