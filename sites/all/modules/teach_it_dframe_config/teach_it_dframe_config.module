@@ -70,6 +70,14 @@ function teach_it_dframe_config_block_info() {
     //'visibility' => BLOCK_VISIBILITY_LISTED,  // Not usually provided.
     //'pages' => 'node/*', // Not usually provided here.
   );
+	
+	$blocks['block_list_locations'] = array(
+    'info' => t('Block list locations shop'),
+    'status' => TRUE,
+    'region' => 'content',  // Not usually provided.
+    //'visibility' => BLOCK_VISIBILITY_LISTED,  // Not usually provided.
+    //'pages' => 'node/*', // Not usually provided here.
+  );
 
   return $blocks;
 }
@@ -90,6 +98,10 @@ function teach_it_dframe_config_block_view($delta = '') {
       //$block['subject'] = t('Title of second block (example_empty)');
       $block['content'] = block_teach_it_dframe_contents($delta);
       break;
+		case 'block_list_locations':
+      //$block['subject'] = t('Title of second block (example_empty)');
+      $block['content'] = block_list_locations($delta);
+      break;
   }
   return $block;
 }
@@ -104,6 +116,20 @@ function block_teach_it_dframe_contents($which_block) {
     case 'social_information':
       return array('#markup' => '<div class="social-information">' . social_information_html() . '</div>');
   }
+}
+
+function block_list_locations($which_block) {
+	$type = "location_shop"; 
+	$nodes = node_load_multiple(array(), array('type' => $type)); 
+	$output = '<p class="title">LOCATIONS</p>';
+	$output .= '<ul>';
+	foreach ($nodes as $key => $value) {
+		$output .= '<li><a href="' . url('node/'. $value->nid) . '">' . $value->title . '</a></li>';
+	}
+	
+	$output .= '</ul>';
+	
+  return array('#markup' => '<div class="block-list-locations-wrap">' . $output. '</div>');
 }
 
 function social_information_html() {
@@ -137,3 +163,5 @@ function social_information_html() {
   
   return $html;
 }
+
+//hook theme for location page
