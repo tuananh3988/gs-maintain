@@ -118,6 +118,14 @@ a {
   text-align: center;
 }
 
+.block-main-menu ul.menu li.last {
+  float: right;
+}
+
+.block-main-menu ul.menu li.last a {
+  color: #76bd1d
+}
+
 .block-main-menu ul.menu li.first {
   padding-left: 0;
   margin-left: 0;
@@ -619,3 +627,4 @@ ul.mnav.sf-menu>li>a {
 	font-size: 20px;
 	line-height: 44px;
 }
+

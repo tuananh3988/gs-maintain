@@ -78,6 +78,14 @@ function teach_it_dframe_config_block_info() {
     //'visibility' => BLOCK_VISIBILITY_LISTED,  // Not usually provided.
     //'pages' => 'node/*', // Not usually provided here.
   );
+  
+  $blocks['block_list_locations_map'] = array(
+    'info' => t('Block list locations shop map'),
+    'status' => TRUE,
+    'region' => 'content',  // Not usually provided.
+    'visibility' => BLOCK_VISIBILITY_LISTED,  // Not usually provided.
+    'pages' => 'map/*', // Not usually provided here.
+  );
 
   return $blocks;
 }
@@ -99,6 +107,10 @@ function teach_it_dframe_config_block_view($delta = '') {
       $block['content'] = block_teach_it_dframe_contents($delta);
       break;
 		case 'block_list_locations':
+      //$block['subject'] = t('Title of second block (example_empty)');
+      $block['content'] = block_list_locations($delta);
+      break;
+    case 'block_list_locations_map':
       //$block['subject'] = t('Title of second block (example_empty)');
       $block['content'] = block_list_locations($delta);
       break;
