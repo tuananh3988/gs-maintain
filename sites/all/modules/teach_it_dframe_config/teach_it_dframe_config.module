@@ -131,17 +131,22 @@ function block_teach_it_dframe_contents($which_block) {
 }
 
 function block_list_locations($which_block) {
-	$type = "location_shop"; 
-	$nodes = node_load_multiple(array(), array('type' => $type)); 
-	$output = '<p class="title">LOCATIONS</p>';
-	$output .= '<ul>';
-	foreach ($nodes as $key => $value) {
-		$output .= '<li><a href="' . url('node/'. $value->nid) . '">' . $value->title . '</a></li>';
-	}
-	
-	$output .= '</ul>';
-	
-  return array('#markup' => '<div class="block-list-locations-wrap">' . $output. '</div>');
+  switch ($which_block) {
+    case 'block_list_locations':
+      $type = "location_shop"; 
+      $nodes = node_load_multiple(array(), array('type' => $type)); 
+      $output = '<p class="title">LOCATIONS</p>';
+      $output .= '<ul>';
+      foreach ($nodes as $key => $value) {
+        $output .= '<li><a href="' . url('node/'. $value->nid) . '">' . $value->title . '</a></li>';
+      }
+
+      $output .= '</ul>';
+
+      return array('#markup' => '<div class="block-list-locations-wrap">' . $output. '</div>');
+      
+    case 'block_list_locations_map':
+  }
 }
 
 function social_information_html() {
