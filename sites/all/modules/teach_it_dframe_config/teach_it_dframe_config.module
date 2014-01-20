@@ -146,6 +146,18 @@ function block_list_locations($which_block) {
       return array('#markup' => '<div class="block-list-locations-wrap">' . $output. '</div>');
       
     case 'block_list_locations_map':
+			$type = "location_shop"; 
+      $nodes = node_load_multiple(array(), array('type' => $type)); 
+      $output = '<p class="title">LOCATIONS</p>';
+      $output .= '<ul>';
+      foreach ($nodes as $key => $value) {
+				$state = isset($value->field_state['und'][0]['value']) ? '<span class="state"> (' . $value->field_state['und'][0]['value'] . ')</span>' : '';
+        $output .= '<li><a href="' . url('node/'. $value->nid) . '">' . $value->title . $state . '</a></li>';
+      }
+
+      $output .= '</ul>';
+
+      return array('#markup' => '<div class="block-list-locations-map-wrap">' . $output. '</div>');
   }
 }
 

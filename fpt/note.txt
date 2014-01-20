@@ -20,26 +20,42 @@
 	</tbody>
 </table>
 
-
-
-<table cellpadding="1" cellspacing="1" style="width: 350px;">
+<table cellpadding="1" cellspacing="1" style="width: 100%;">
 	<tbody>
 		<tr>
-			<td width="60%">40 Broad Street<br />
-			Red Bank, NJ 07701<br />
-			732.268.7913</td>
-			<td width="40%">
-			<p><img alt="" src="/sites/default/files/red-bank-no-balloon3.jpg" style="width: 100%;" /></p>
+			<td width="39%"><img alt="" src="/sites/default/files/1220RedBank.png" style="width: 100%;" /></td>
+			<td width="22%">
+			<p class="title-shop-detail rtecenter"><span style="font-size:26px;">Red Bank</span></p>
 
-			<p><span style="color: rgb(33, 47, 64); font-family: proxima-nova, 'Helvetica Neue', Arial, sans-serif; font-size: 14px; white-space: pre-wrap; background-color: rgb(255, 255, 255);">Mon - Wed: 10 AM - 7 PM</span><br style="color: rgb(33, 47, 64); font-family: proxima-nova, 'Helvetica Neue', Arial, sans-serif; font-size: 14px; white-space: pre-wrap; background-color: rgb(255, 255, 255);" />
-			<span style="color: rgb(33, 47, 64); font-family: proxima-nova, 'Helvetica Neue', Arial, sans-serif; font-size: 14px; white-space: pre-wrap; background-color: rgb(255, 255, 255);">Thurs: 10 AM - 8 PM</span><br style="color: rgb(33, 47, 64); font-family: proxima-nova, 'Helvetica Neue', Arial, sans-serif; font-size: 14px; white-space: pre-wrap; background-color: rgb(255, 255, 255);" />
-			<span style="color: rgb(33, 47, 64); font-family: proxima-nova, 'Helvetica Neue', Arial, sans-serif; font-size: 14px; white-space: pre-wrap; background-color: rgb(255, 255, 255);">Fri - Sat: 10 AM - 9 PM</span><br style="color: rgb(33, 47, 64); font-family: proxima-nova, 'Helvetica Neue', Arial, sans-serif; font-size: 14px; white-space: pre-wrap; background-color: rgb(255, 255, 255);" />
-			<span style="color: rgb(33, 47, 64); font-family: proxima-nova, 'Helvetica Neue', Arial, sans-serif; font-size: 14px; white-space: pre-wrap; background-color: rgb(255, 255, 255);">Sun: 11 AM - 7 PM</span></p>
+			<p class="rtecenter"><span style="font-size:12px;">40 Broad Street</span></p>
+
+			<p class="rtecenter"><span style="font-size:12px;">Red Bank, NJ 07701</span></p>
+
+			<p class="rtecenter"><span style="font-size:12px;">732.268.7913</span></p>
+
+			<p>&nbsp;</p>
+
+			<p class="rtecenter"><span style="font-size:18px;"><u>STORE HOURS</u></span></p>
+
+			<p class="rtecenter"><span style="font-size:12px;">Mon - Wed: 10 AM - 7 PM<span></p>
+
+			<p class="rtecenter"><span style="font-size:12px;">Thurs: 10 AM - 8 PM</span></p>
+			
+			<p class="rtecenter"><span style="font-size:12px;">Fri - Sat: 10 AM - 9 PM</span></p>
+			
+			<p class="rtecenter"><span style="font-size:12px;">Sun: 11 AM - 7 PM</span></p>
+			
+			
 			</td>
+			<td width="39%"><img alt="" src="/sites/default/files/red-bank.jpg" style="width: 100%;" /></td>
 		</tr>
 	</tbody>
 </table>
 
-<p>&nbsp;</p>
+
+
+
+
+
 
 
