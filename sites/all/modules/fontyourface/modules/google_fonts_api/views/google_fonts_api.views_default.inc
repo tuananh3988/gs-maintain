@@ -47,14 +47,13 @@ function google_fonts_api_views_default_views() {
   $handler->display->display_options['style_options']['class'] = 'fonts-listing';
   $handler->display->display_options['style_options']['wrapper_class'] = '';
   $handler->display->display_options['row_plugin'] = 'fields';
-  /* Header: Global: Text area */
-  $handler->display->display_options['header']['area']['id'] = 'area';
-  $handler->display->display_options['header']['area']['table'] = 'views';
-  $handler->display->display_options['header']['area']['field'] = 'area';
-  $handler->display->display_options['header']['area']['empty'] = TRUE;
-  $handler->display->display_options['header']['area']['content'] = '0 fonts currently enabled.';
-  $handler->display->display_options['header']['area']['format'] = 'filtered_html';
-  $handler->display->display_options['header']['area']['tokenize'] = 0;
+  /* Header: Global: Text area_text_custom */
+  $handler->display->display_options['header']['area_text_custom']['id'] = 'area_text_custom';
+  $handler->display->display_options['header']['area_text_custom']['table'] = 'views';
+  $handler->display->display_options['header']['area_text_custom']['field'] = 'area_text_custom';
+  $handler->display->display_options['header']['area_text_custom']['empty'] = TRUE;
+  $handler->display->display_options['header']['area_text_custom']['content'] = '0 fonts currently enabled.';
+  $handler->display->display_options['header']['area_text_custom']['tokenize'] = 0;
   /* Relationship: Font: Font Tag */
   $handler->display->display_options['relationships']['tid']['id'] = 'tid';
   $handler->display->display_options['relationships']['tid']['table'] = 'fontyourface_tag_font';
@@ -287,7 +286,7 @@ function google_fonts_api_views_default_views() {
   $handler->display->display_options['filters']['license']['expose']['identifier'] = 'license';
   $handler->display->display_options['filters']['license']['expose']['required'] = 0;
   $handler->display->display_options['filters']['license']['expose']['multiple'] = FALSE;
-  
+
   /* Display: Google Fonts */
   $handler = $view->new_display('page', 'Google Fonts', 'page_2');
   $handler->display->display_options['defaults']['arguments'] = FALSE;

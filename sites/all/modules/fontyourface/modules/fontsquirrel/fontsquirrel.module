@@ -33,18 +33,18 @@ function fontsquirrel_fontyourface_preview($font, $text = NULL, $size = 18) {
 
     foreach ($sizes as $size) {
 
-      $output = '<img src="http://www.fontsquirrel.com/utils/makeFont.php?font=' . $metadata['id'] . '/' . $metadata['font_filename'] . '&width=300&size=' . $size . '&text=' . urlencode($text) . '" />';
+    $output .= '<span style="display: block; width: 720px; height: 100px; background-repeat: no-repeat; background-image: url(http://www.fontsquirrel.com/widgets/test_drive/' . $metadata['checksum'] . '?s=' . $size . '&amp;t=' . urlencode($text) . ');"></span>';
 
     } // foreach
 
-    $output .= '<div><img src="http://www.fontsquirrel.com/utils/makeSolotypeSample.php?font=' . $metadata['id'] . '/' . $metadata['font_filename'] . '&case=all" /></div>';
+    $output .= '<div><img src="' . $metadata['listing_image'] . '" /></div>';
 
   } // if
   else {
 
     // Display single size.
 
-    $output = '<img src="http://www.fontsquirrel.com/utils/makeFont.php?font=' . $metadata['id'] . '/' . $metadata['font_filename'] . '&width=150&size=' . ($size - 10) . '&text=' . urlencode($text) . '" />';
+    $output = '<span style="display: block; width: 150px; height: 100px; background-repeat: no-repeat; background-position: -300px -50px; background-image: url(http://www.fontsquirrel.com/widgets/test_drive/' . $metadata['checksum'] . '?s=' . $size . '&amp;t=' . urlencode($text) . ');"></span>';
 
   } // else
 
@@ -61,18 +61,22 @@ function fontsquirrel_preprocess_html(&$vars) {
     $paths = array();
 
     foreach ($vars['fontyourface'] as $used_font) {
-
+		
       if ($used_font->provider == 'fontsquirrel') {
         $metadata = unserialize($used_font->metadata);
         if (module_exists('google_webfont_loader_api') && !empty($used_font->css_family)) {
           $font_info = array(
             'custom_families' => array($used_font->css_family),
-            'custom_style_css' => array('fontyourface/fontsquirrel/' . $metadata['path'] . '-fontfacekit/stylesheet.css'),
+            'custom_style_css' => array('fontyourface/fontsquirrel/stylesheets/' . $used_font->css_family . '-' . $metadata['path'] . "-" . strtolower($metadata['zip_directory']) . '-stylesheet.css'),
           );
           _google_webfont_loader_api_load_font($font_info);
         }
         else {
-          $paths[] = $metadata['path'];
+          $paths[] = array(
+          'path' => $metadata['path'],
+          'zip_directory' => $metadata['zip_directory'],
+          'css_family' => $used_font->css_family,
+          );
         }
 
       } // if
@@ -83,7 +87,7 @@ function fontsquirrel_preprocess_html(&$vars) {
 
       foreach ($paths as $path) {
 
-        fontyourface_add_css_in_preprocess($vars, 'fontyourface/fontsquirrel/' . $path . '-fontfacekit/stylesheet.css');
+        fontyourface_add_css_in_preprocess($vars, 'fontyourface/fontsquirrel/stylesheets/' . $path['css_family'] . '-' . $path['path'] . "-" . strtolower($path['zip_directory']) . '-stylesheet.css');
 
       } // foreach
 
@@ -189,6 +193,11 @@ function fontsquirrel_fontyourface_enable($font) {
           if (zip_entry_open($zip, $entry, 'r') && ($zip_entry_filesize = zip_entry_filesize($entry))) {
 
             $entry_name = zip_entry_name($entry);
+            $inside_directory = dirname($entry_name);
+            if ($inside_directory !== '.') {
+              $inside_directory = $directory_location . '/' . $inside_directory;
+              file_prepare_directory($inside_directory, FILE_CREATE_DIRECTORY);
+            }
             $data = zip_entry_read($entry, $zip_entry_filesize);
             file_unmanaged_save_data($data, $directory_location . '/' . $entry_name, FILE_EXISTS_REPLACE);
 
@@ -213,11 +222,44 @@ function fontsquirrel_fontyourface_enable($font) {
       } // else
 
     } // if
+  } // if
 
-    if (! $success) {
-      fontyourface_disable_font($font);
-    } // if
+  $css_fyf_file = file_build_uri('fontyourface/fontsquirrel/stylesheets/' . $font->css_family . '-' . $metadata['path'] . "-" . strtolower($metadata['zip_directory']) . '-stylesheet.css');
+  $css_fyf_dir = dirname($css_fyf_file);
+  $css_orig_file = file_build_uri('fontyourface/fontsquirrel/' . $metadata['path'] . '-fontfacekit/web fonts/' . strtolower($metadata['zip_directory']) . '_macroman/stylesheet.css');
+  $css_orig_dir = file_create_url(dirname($css_orig_file));
 
+  if (!file_exists(drupal_realpath($css_fyf_file))) {
+	  if (file_exists(drupal_realpath($css_orig_file))) {
+		  $css_content = file_get_contents(drupal_realpath($css_orig_file));
+
+		  $css_content = preg_replace('#^(\s*font-family\s*:\s*).*$#im', '$1 \'' . $font->css_family . '\' ;', $css_content);
+		  $css_content = preg_replace('#^(.*url\(\')(.*)$#im', '$1' . $css_orig_dir . '/$2', $css_content);
+
+		  if (file_prepare_directory($css_fyf_dir, FILE_CREATE_DIRECTORY)) {
+
+			  $css_file = file_unmanaged_save_data($css_content, $css_fyf_file, FILE_EXISTS_REPLACE);
+
+			  drupal_set_message(t('@font stylesheet created.', array('@font' => $font->css_family)));
+
+		  } // if
+		  else {
+
+			drupal_set_message(t('There was an error saving font %fontname from Font Squirrel.', array('%fontname' => $font->name)), 'error');
+			$success = FALSE;
+
+		  } // else
+	  } // if
+	  else {
+
+			drupal_set_message(t('The default stylesheet for font %fontname from Font Squirrel was not found. The path of the css file missing is: @path_css', array('%fontname' => $font->name, '@path_css' => $css_orig_file,)), 'error');
+			$success = FALSE;
+
+	  } // else
+  } // if
+
+  if (! $success) {
+	fontyourface_disable_font($font);
   } // if
 
   return $success;
@@ -240,35 +282,8 @@ function fontsquirrel_fontyourface_import() {
     foreach ($decoded as $font_import) {
 
       // If there are multiple variants, add to batch processing array.
-      if ($font_import->family_count > 1) {
+      if ($font_import->family_count > 0) {
         $families[] = $font_import->family_urlname;
-      }
-      // If there is only one variant, save immediately.
-      else {
-        $metadata = array(
-          'id' => $font_import->id,
-          'path' => $font_import->family_urlname,
-          'font_filename' => $font_import->font_filename,
-        );
-
-        $font = new StdClass;
-        $font->name = $font_import->family_name;
-        $font->url = 'http://www.fontsquirrel.com/fonts/' . $font_import->family_urlname;
-        $font->provider = 'fontsquirrel';
-        $font->foundry = $font_import->foundry_name;
-        $font->foundry_url = 'http://www.fontsquirrel.com/foundry/' . $font_import->foundry_urlname;
-        $font->license = 'See Font Squirrel license page';
-        $font->license_url = 'http://www.fontsquirrel.com/fonts/' . $font_import->family_urlname . '#eula';
-        $font->tags = array($font_import->classification);
-        $font->metadata = serialize($metadata);
-
-        fontyourface_save_font($font);
-
-        // Add a tag if this is a monocase font.
-        if ($font_import->is_monocase == 'Y') {
-          fontyourface_add_tags_to_font(array('monocase'), $font->fid);
-        }
-
       }
     } // foreach
 
@@ -310,6 +325,10 @@ function fontsquirrel_batch_import($families, &$context) {
       'id' => $variant->family_id,
       'path' => $variant->family_urlname,
       'font_filename' => $variant->filename,
+	  'checksum' => $variant->checksum,
+	  'listing_image' => str_replace("\\/", "/", $variant->listing_image),
+	  'zip_directory' => strtolower(str_replace(" ", "", $variant->family_name) . '_' . str_replace(" ", "", $variant->style_name)),
+	  'css_font_family_name' => strtolower(str_replace(" ", "_", $variant->family_name . $variant->style_name)),
     );
     $font = new StdClass;
     $font->name = $variant->family_name . ' ' . $variant->style_name;
@@ -323,7 +342,7 @@ function fontsquirrel_batch_import($families, &$context) {
     $font->foundry = $variant->foundry_name;
     $font->foundry_url = 'http://www.fontsquirrel.com/foundry/' . $variant->foundry_urlname;
     $font->license = 'See Font Squirrel license page';
-    $font->license_url = 'http://www.fontsquirrel.com/fonts/' . $variant->family_urlname . '#eula';
+    $font->license_url = 'http://www.fontsquirrel.com/license/' . $variant->family_urlname;
     $font->tags = array($variant->classification);
     $font->metadata = serialize($metadata);
     fontyourface_save_font($font);

@@ -599,10 +599,11 @@ ul.mnav.sf-menu>li>a {
 	position: relative;
 }
 
+.page-map-node .block-system-main {
+	float: right;
+	width: 75%;
+}
 .page-map-node .block-block-list-locations {
-	position: absolute;
-	top: 0;
-	left: 0;
 	height: 500px;
 	width: 25%;
 	background-color: #f0f1f1;
@@ -671,3 +672,5 @@ ul.mnav.sf-menu>li>a {
 	padding: 0;
 	background-color: #eef0f1;
 }
+
+ 
